@@ -1,1 +1,2 @@
-![Alt text](path_to_image)
+![Coastal Monitoring](coastal_monitoring.png)
+
