@@ -1,0 +1,102 @@
+import random
+
+print("\nWelcome to the Arctic Coastal Monitoring Research Game with Sima!")
+print("Navigate through satellite imagery or fieldwork to gather data and complete your research project.")
+
+def best_season():
+    return "summer"
+
+def arctic_coastal_monitoring():
+    # Ask the user if they have experience working in the Arctic
+    experience = input("Have you ever worked on the Arctic? (yes/no): ").lower()
+
+    if experience == "yes":
+        print("Sounds good! We can be a good team in this challenging process.")
+    else:
+        print("Do not worry! I am new in this field like you; we can learn step by step.")
+
+
+    key_factors = ["Sea Ice Dynamics", "Sediment Transport", "Wave Patterns"]
+    dangers = ["Polar Bear", "Iceberg Collision", "Extreme Cold"]
+    rewards = ["Successful Satellite Data", "Accurate Field Measurements", "Valid Climate Observations"]
+    satellites = ["Sentinel", "Landsat", "Modis"]
+
+    game_over = False
+    project_completed = False
+    score = 0
+
+    # Define method for choosing the method of research
+    def choose_method():
+        nonlocal game_over, project_completed, score
+        method = ""
+
+        while method not in ['F', 'R']:  # Ensure the user chooses a valid method
+            method = input("\nChoose your method: Type 'F' for Field work or 'R' for Remote Sensing: ").upper()
+
+        if method == 'F':  # Fieldwork method
+            season = input("What is the best season for fieldwork? ").lower()
+            if season == best_season():  # Correct season
+                print("\nStart your data gathering.")
+                print("Prof. David Didier and Prof. Simon Belanger guide you in this process")
+                data_gathering()
+                project_completed = True
+            else:
+                print("\nYou are in danger! Fieldwork is not possible due to harsh conditions.")
+                game_over = encounter_danger()
+
+        elif method == 'R':  # Remote sensing method
+            print("\nChoose your satellite:")
+            for satellite in satellites:  # Use a for loop to show available satellites
+                print(satellite)
+            chosen_satellite = input("Enter satellite choice: ").capitalize()
+
+            if chosen_satellite in satellites:
+                print(f"You have chosen {chosen_satellite}. Now choose your key factor:")
+                for key_factor in key_factors:  # Use a for loop to show available key factors
+                    print(key_factor)
+                key_factor = input("Enter key factor: ").title()
+
+                if key_factor in key_factors:
+                    print("\nEvaluating results based on the chosen key factor...")
+                    print("\n You need help for continuing the rest of the process,"
+                          "Prof. David Didier in the filed of Coastal hazards and geomorphology and"
+                          "Prof. Simon Belanger in the field of Remote sensing support you ")
+                    project_completed = True
+                    evaluate_results()
+                else:
+                    print("Invalid key factor choice. Inadequate data, you cannot continue the process.")
+                    game_over = True
+            else:
+                print("Invalid satellite choice. You cannot continue the process.")
+                game_over = True
+
+    def data_gathering():
+        nonlocal score
+        reward = random.choice(rewards)
+        print(f"Great! You gathered {reward}. You gain 20 points.")
+        score += 20
+
+    def evaluate_results():
+        nonlocal score
+        print("Results evaluated successfully! You gain 30 points.")
+        score += 30
+
+    def encounter_danger():
+        danger = random.choice(dangers)
+        print(f"Oh no! You encountered {danger}. GAME OVER.")
+        return True
+
+    # Main game loop
+    while not game_over and not project_completed:  # Use a while loop to keep the game running
+        choose_method()
+
+    if project_completed:
+        score += 50  # Add 50 points for project completion
+        print("\nProject completed successfully!")
+        print("You win!")
+        print(f"Your total score is: {score}")
+    elif game_over:
+        print("\nGAME OVER!")
+
+# Run the game
+arctic_coastal_monitoring()
