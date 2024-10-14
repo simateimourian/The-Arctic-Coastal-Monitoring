@@ -1,5 +1,5 @@
 import random
-![Arctic Coastal Monitoring](images/arctic_coastal_monitoring.png)
+
 print("\nWelcome to the Arctic Coastal Monitoring Research Game with Sima!")
 print("Navigate through satellite imagery or fieldwork to gather data and complete your research project.")
 
